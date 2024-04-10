@@ -217,14 +217,10 @@ Date    : April, 2024
 * Items b & c: Mixed logit and marginal effects
 	eststo drop *
 	eststo m0: asclogit individual_choice tiempo impto, case(mrun) alternatives(opciones) casevars($covariates4) base(1) nobase vce(robust) collinear nocons
-	eststo m1: margins, dydx(*) atmeans post
+	eststo m1: margins gen_alu 
 	
-	i.region_metrop i.beneficio_econ
 
 	esttab m1 m2 using "Tables/mixed_logit.tex", replace booktabs f se(2) b(3) star(* 0.10 ** 0.05 *** 0.01) postfoot(\bottomrule) ///
 		   stats(N ll, labels(N "Log-likelihood") fmt(%12.0fc %12.2fc)) mtitles("Coefficients $\hat{\beta}$" "Marginal Effects") labels ///
-		   drop(0.edad)
-		   
-		   ///
 		   coeflabels(tiempo "Time" impto "Tax") eform(0 1)
 
