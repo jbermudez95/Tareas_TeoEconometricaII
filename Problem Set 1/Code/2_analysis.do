@@ -219,8 +219,21 @@ Date    : April, 2024
 	eststo m0: asclogit individual_choice tiempo impto, case(mrun) alternatives(opciones) casevars($covariates4) base(1) nobase vce(robust) collinear nocons
 	eststo m1: margins gen_alu 
 	
+	qui asclogit individual_choice tiempo impto, case(mrun) alternatives(opciones) casevars($covariates4) base(1) nobase vce(robust) collinear nocons
+	eststo m2: margins region_metrop
+	
+	qui asclogit individual_choice tiempo impto, case(mrun) alternatives(opciones) casevars($covariates4) base(1) nobase vce(robust) collinear nocons
+	eststo m3: margins beneficio_econ
+	
+	eststo m4: margins, dydx(tiempo impto)
 
-	esttab m1 m2 using "Tables/mixed_logit.tex", replace booktabs f se(2) b(3) star(* 0.10 ** 0.05 *** 0.01) postfoot(\bottomrule) ///
-		   stats(N ll, labels(N "Log-likelihood") fmt(%12.0fc %12.2fc)) mtitles("Coefficients $\hat{\beta}$" "Marginal Effects") labels ///
-		   coeflabels(tiempo "Time" impto "Tax") eform(0 1)
+	esttab m0 using "Tables/mixed_logit_alternative.tex", replace 
+	
+	booktabs f se(2) b(3) star(* 0.10 ** 0.05 *** 0.01) postfoot(\bottomrule) ///
+		   stats(N ll, labels(N "Log-likelihood") fmt(%12.0fc %12.2fc)) label ///
+		   coeflabels(tiempo "Time" impto "Tax") eform(0 1) noomitted nobase unstack
+		   
+		   mtitles("Coefficients $\hat{\beta}$" "Marginal Effects") 
 
+		   
+		   esttab m1 m2 m3 using "Tables/mixed_logit_marginals.tex", append
