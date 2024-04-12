@@ -32,9 +32,9 @@ Paths and working directories (CHANGE ACCORDING TO USER SPECIFICATION)
 	if "`c(username)'" == "Jose Carlo Bermúdez" {
 		cd "C:/Users/bermu/OneDrive - Universidad Católica de Chile/Clases Magíster/Teoría Econométrica II/Tareas_TeoEconometricaII/Problem Set 1"
 	}
-	* For Nico/Vale replicability: Kindly insert your user name and then the path where carpet has been saved :)
-	else if "`c(username)'" == "" {												
-		cd ""
+	* For Nico and Vale replicability :)
+	else if "`c(username)'" == "" {												// Insert username											
+		cd ""																	// Insert location of your PC where the carpet has been stored
 	}
 	
 	
