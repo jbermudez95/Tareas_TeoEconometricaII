@@ -200,13 +200,11 @@ Date    : April, 2024
 			  
 * Items b and c: Conditional logit and marginal effects (Table 5)
 	eststo drop *
-	eststo m1: clogit individual_choice tiempo impto, group(mrun) robust
-	eststo m2: clogit individual_choice tiempo impto, group(mrun) robust or
-	eststo m3: margins, dydx(tiempo impto) atmeans post
+	eststo m1a: asclogit individual_choice tiempo impto, case(mrun) alternatives(opciones)
+	outreg using "Tables/coef_cond_logit.tex", replace
 	
-	esttab m1 m2 m3 using "Tables/conditional_logit.tex", replace booktabs f se(2) b(3) star(* 0.10 ** 0.05 *** 0.01) postfoot(\bottomrule) ///
-		   stats(N ll, labels(N "Log-likelihood") fmt(%12.0fc %12.2fc)) mtitles("Coefficients $\hat{\beta}$" "Odds Ratios" "Marginal Effects") ///
-		   coeflabels(tiempo "Time" impto "Tax") eform(0 1)
+	eststo m1b: margins, dydx(*) atmeans post
+	esttab m1b using "Tables/margins_cond_logit.tex", replace unstack 
 
 	
 	
@@ -214,26 +212,12 @@ Date    : April, 2024
 								QUESTION 4
 *******************************************************************************/	 
 
-* Items b & c: Mixed logit and marginal effects
+* Items b and c: Mixed logit and marginal effects (I allow for collinearity so I can get alternative-specific coefficients)
 	eststo drop *
-	eststo m0: asclogit individual_choice tiempo impto, case(mrun) alternatives(opciones) casevars($covariates4) base(1) nobase vce(robust) collinear nocons
-	eststo m1: margins gen_alu 
+	eststo m2a: asclogit individual_choice tiempo impto, case(mrun) alternatives(opciones) casevars($covariates4) collinear
+	outreg using "Data/coef_mixed_logit.tex", replace
 	
-	qui asclogit individual_choice tiempo impto, case(mrun) alternatives(opciones) casevars($covariates4) base(1) nobase vce(robust) collinear nocons
-	eststo m2: margins region_metrop
-	
-	qui asclogit individual_choice tiempo impto, case(mrun) alternatives(opciones) casevars($covariates4) base(1) nobase vce(robust) collinear nocons
-	eststo m3: margins beneficio_econ
-	
-	eststo m4: margins, dydx(tiempo impto)
+	eststo m2b: margins, dydx(*) atmeans post
+	esttab m2b using "Tables/margins_mixed_logit.tex", replace unstack
 
-	esttab m0 using "Tables/mixed_logit_alternative.tex", replace 
 	
-	booktabs f se(2) b(3) star(* 0.10 ** 0.05 *** 0.01) postfoot(\bottomrule) ///
-		   stats(N ll, labels(N "Log-likelihood") fmt(%12.0fc %12.2fc)) label ///
-		   coeflabels(tiempo "Time" impto "Tax") eform(0 1) noomitted nobase unstack
-		   
-		   mtitles("Coefficients $\hat{\beta}$" "Marginal Effects") 
-
-		   
-		   esttab m1 m2 m3 using "Tables/mixed_logit_marginals.tex", append
