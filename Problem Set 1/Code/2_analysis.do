@@ -101,8 +101,8 @@ Date    : April, 2024
 		mkmat unit share, matrix(trajectory)
 		
 		frmttable using "Tables/table3_trajectory.tex", replace statmat(trajectory) tex fr ///
-		rtitles("Stays in same degree"\ "Changes degree"\"Dropout"\"Total") sdec(0,1) ///
-		ctitles("Condition", "Count", "Fraction (\%)")	
+				  rtitles("Stays in same degree"\ "Changes degree"\"Dropout"\"Total") sdec(0,1) ///
+				  ctitles("Condition", "Count", "Fraction (\%)")	
 		
 		
 * Items b & c: Multinomial probit and marginal effects (Table 4)
