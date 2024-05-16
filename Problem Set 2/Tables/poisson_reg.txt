@@ -1,0 +1,19 @@
+		(1)	(2)	(3)
+VARIABLES	LABELS	Estimates for $\hat{\beta}$	Marginal effects	Incidence rate ratios
+				
+ofensas	Offenses			
+				
+Casado	$\mathbbm{1}(\text{Married}=1)$	-0.00451	-0.0394	0.996
+		(0.00627)	(0.0548)	(0.00625)
+Edad	Age	-0.0199***	-0.174***	0.980***
+		(0.00208)	(0.0182)	(0.00204)
+Edad_2	Age$^2$	0.000899***	0.00786***	1.001***
+		(2.55e-05)	(0.000224)	(2.56e-05)
+Urbano	$\mathbbm{1}(\text{Urban}=1)$	0.0316***	0.276***	1.032***
+		(0.00662)	(0.0579)	(0.00683)
+Constant	Constant	1.387***		4.003***
+		(0.0401)		(0.161)
+				
+Observations		83,470	83,470	83,470
+Robust standard errors in parentheses				
+*** p<0.01, ** p<0.05, * p<0.1				
