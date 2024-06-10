@@ -31,6 +31,6 @@ Running do files
 *******************************************************************************/
 
 	forvalues i = 1/2 {
-		do "Code/`i'_problem.do", nostop
+		do "Code/`i'_problem.do"
 	}
 	
